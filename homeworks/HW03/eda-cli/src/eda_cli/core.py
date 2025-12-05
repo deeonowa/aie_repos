@@ -198,15 +198,15 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame) -> 
     high_card = False
     for col in summary.columns:
         if not col.is_numeric and col.unique > high_uniq_number:
-            flags["has_high_cardinality_categoricals"] = True
+            high_card = True
             break
-    flags["has_high_cardinality_categoricals"] = False
+    flags["has_high_cardinality_categoricals"] = high_card
 
-    # проверка, что идентификатор (например, user_id) уникален;
+    # проверка, что идентификатор (например, user_id) не уникален;
     id_duplicates_flag = False
     for col in summary.columns:
         if col.name == 'user_id' and col.unique < summary.n_rows:
-            flags["has_suspicious_id_duplicates"] = True
+            id_duplicates_flag = True
             break
     flags["has_suspicious_id_duplicates"] = id_duplicates_flag
 
