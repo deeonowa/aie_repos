@@ -294,6 +294,7 @@ curl -X POST "http://127.0.0.1:8000/quality-flags-from-csv" \
 
 **Пример ответа `200 OK`:**
 
+```json
 {
   "too_few_rows": false,
   "too_many_columns": false,
@@ -304,6 +305,7 @@ curl -X POST "http://127.0.0.1:8000/quality-flags-from-csv" \
   "has_suspicious_id_duplicates": false,
   "quality_score": 0.1289562289562289
 }
+```
 
 ---
 
