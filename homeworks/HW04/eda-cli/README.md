@@ -2,7 +2,7 @@
 
 Расширенная версия проекта `eda-cli` из Семинара 03.
 
-К существующему CLI-приложению для EDA добавлен **HTTP-сервис на FastAPI** с эндпоинтами `/health`, `/quality` и `/quality-from-csv`.  
+К существующему CLI-приложению для EDA добавлен **HTTP-сервис на FastAPI** с эндпоинтами `/health`, `/quality`, `/quality-from-csv` и `/quality-flags-from-csv`.  
 Используется в рамках Семинара 04 курса «Инженерия ИИ».
 
 ---
@@ -64,6 +64,15 @@ uv run eda-cli overview data/example.csv
 ```bash
 uv run eda-cli report data/example.csv --out-dir reports
 ```
+
+Параметры:
+
+- `---out-dir` – Каталог для отчёта (по умолчанию `reports`);
+- `--sep` – Разделитель в CSV (по умолчанию `,`);
+- `--encoding` – Кодировка файла (по умолчанию `utf-8`);
+- `--max-hist-columns` – Максимум числовых колонок для гистограмм (по умолчанию `6`)
+- `--title` – Заголовок отсчета в начале report.md (по умолчанию `# EDA-отчёт`);
+- `--top-k-categories` – Количество top-значений в выводе категориальных признаков (по умолчанию `5`).
 
 В результате в каталоге `reports/` появятся:
 
@@ -145,6 +154,7 @@ http://127.0.0.1:8000/docs
 - вызывать `GET /health`;
 - вызывать `POST /quality` (форма для JSON);
 - вызывать `POST /quality-from-csv` (форма для загрузки файла).
+- вызвать `Post /quality-flags-from-csv` (форма для загрузки файла)
 
 ---
 
@@ -244,6 +254,56 @@ curl -X POST "http://127.0.0.1:8000/quality-from-csv" \
 - `flags` - булевы флаги из `compute_quality_flags`;
 - `dataset_shape` - реальные размеры датасета (`n_rows`, `n_cols`);
 - `latency_ms` - время обработки запроса.
+
+---
+
+## 5. `quality-flags-from-csv` - вывод фолагов качества по CSV-файлу
+
+Эндпоинт принимает CSV-файл, внутри:
+
+- читает его в `pandas.DataFrame`;
+- вызывает функции из `eda_cli.core`:
+
+  - `summarize_dataset`,
+  - `missing_table`,
+  - `compute_quality_flags`;
+
+- возвращает флаги датасета.
+
+**Запрос:**
+
+```http
+POST /quality-flags-from-csv
+Content-Type: multipart/form-data
+file: <CSV-файл>
+```
+
+Через Swagger:
+
+- в `/docs` открыть `POST /quality-flags-from-csv`,
+- нажать `Try it out`,
+- выбрать файл (например, `data/example.csv`),
+- нажать `Execute`.
+
+**Пример вызова через `curl` (Linux/macOS/WSL):**
+
+```bash
+curl -X POST "http://127.0.0.1:8000/quality-flags-from-csv" \
+  -F "file=@data/example.csv"
+```
+
+**Пример ответа `200 OK`:**
+
+{
+  "too_few_rows": false,
+  "too_many_columns": false,
+  "max_missing_share": 0.7710437710437711,
+  "too_many_missing": true,
+  "has_constant_columns": false,
+  "has_high_cardinality_categoricals": true,
+  "has_suspicious_id_duplicates": false,
+  "quality_score": 0.1289562289562289
+}
 
 ---
 
