@@ -177,6 +177,7 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame) -> 
     - подозрительно мало строк;
     и т.п.
     """
+    """"""
     flags: Dict[str, Any] = {}
     flags["too_few_rows"] = summary.n_rows < 100
     flags["too_many_columns"] = summary.n_cols > 100
@@ -184,17 +185,32 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame) -> 
     max_missing_share = float(missing_df["missing_share"].max()) if not missing_df.empty else 0.0
     flags["max_missing_share"] = max_missing_share
     flags["too_many_missing"] = max_missing_share > 0.5
+    
+    cols_df = pd.DataFrame([c.to_dict() for c in summary.columns])
+    #флаг, показывающий, есть ли колонки, где все значения одинаковые
+    if not cols_df.empty:
+        flags["has_constant_columns"] = bool(((cols_df["unique"] == 1) & (cols_df["missing_share"] < 1.0)).any())
+    else:
+        flags["has_constant_columns"] = False
 
-    constant_cols = summary[summary.duplicated()]  
-    flags["has_constant_columns"] = constant_cols.any()  #вычисление повторяющихся строк
+    # категориальные (не числа) признаки с очень большим числом уникальных значений
+    high_uniq_number = 50 
+    high_card = False
+    for col in summary.columns:
+        if not col.is_numeric and col.unique > high_uniq_number:
+            high_card = True
+            break
+    flags["has_high_cardinality_categoricals"] = high_card
 
-    categoricals = summary.select_dtypes(include=['object', 'string'])
-    high_card_cols = categoricals.apply(lambda col: col.nunique() > 50)
-    flags["has_high_cardinality_categoricals"] = high_card_cols.any()  #вычисление большего количества уникальных значение в определенных признаках
+    # проверка, что идентификатор (например, user_id) не уникален;
+    id_duplicates_flag = False
+    for col in summary.columns:
+        if col.name == 'user_id' and col.unique < summary.n_rows:
+            id_duplicates_flag = True
+            break
+    flags["has_suspicious_id_duplicates"] = id_duplicates_flag
 
-    constant_cols = summary["user_id"][summary.duplicated()]  
-    flags["has_suspicious_id_duplicates "] = constant_cols.any() #наличие повторящихся user_id
-
+    
     # Простейший «скор» качества
     score = 1.0
     score -= max_missing_share  # чем больше пропусков, тем хуже

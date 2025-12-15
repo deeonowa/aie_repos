@@ -15,9 +15,11 @@ from eda_cli.core import (
 def _sample_df() -> pd.DataFrame:
     return pd.DataFrame(
         {
-            "age": [10, 20, 30, None],
-            "height": [140, 150, 160, 170],
-            "city": ["A", "B", "A", None],
+            "user_id": [1, 2, 1, 3, 4],
+            "age": [10, 20, 10, None, -1],
+            "height": [140, 150, 140, 170, 140],
+            "city": ["A", "B", "A", None, "A"],
+            "test": [1, 1, 1, 1, 1],
         }
     )
 
@@ -26,8 +28,8 @@ def test_summarize_dataset_basic():
     df = _sample_df()
     summary = summarize_dataset(df)
 
-    assert summary.n_rows == 4
-    assert summary.n_cols == 3
+    assert summary.n_rows == 5
+    assert summary.n_cols == 5
     assert any(c.name == "age" for c in summary.columns)
     assert any(c.name == "city" for c in summary.columns)
 
@@ -59,3 +61,13 @@ def test_correlation_and_top_categories():
     city_table = top_cats["city"]
     assert "value" in city_table.columns
     assert len(city_table) <= 2
+
+def test_unique_user_id_and_constant_columns():
+    df = _sample_df()
+
+    missing_df = missing_table(df)
+    summary = summarize_dataset(df)
+    flags = compute_quality_flags(summary, missing_df)
+
+    assert flags["has_suspicious_id_duplicates"] == True
+    assert flags["has_constant_columns"] == True
