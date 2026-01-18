@@ -1,0 +1,23 @@
+{
+  "FirstKMeansConf": {
+    "k": 2
+  },
+  "FirstDBSCANConf": {
+    "eps": 2.0,
+    "min_samples": 3
+  },
+  "SecondKMeansConf": {
+    "k": 2
+  },
+  "SecondDBSCANConf": {
+    "eps": 0.5,
+    "min_samples": 10
+  },
+  "ThirdKMeansConf": {
+    "k": 3
+  },
+  "ThirdDBSCANConf": {
+    "eps": 0.5,
+    "min_samples": 50
+  }
+}
