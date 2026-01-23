@@ -8,7 +8,7 @@
 
 ### 1.1 Dataset A
 
-- Файл: `S07-hw-dataset-01.csv`
+- Файл: S07-hw-dataset-01.csv
 - Размер: (12000, 9)
 - Признаки: числовые
 - Пропуски: нет
@@ -16,7 +16,7 @@
 
 ### 1.2 Dataset B
 
-- Файл: `S07-hw-dataset-01.csv`
+- Файл: S07-hw-dataset-02.csv
 - Размер: (8000, 4)
 - Признаки: числовые
 - Пропуски: нет
@@ -24,7 +24,7 @@
 
 ### 1.3 Dataset C
 
-- Файл: `S07-hw-dataset-03.csv`
+- Файл: S07-hw-dataset-03.csv
 - Размер: (15000, 5)
 - Признаки: числовые
 - Пропуски: нет
@@ -53,9 +53,9 @@
 - KMeans: k: 2
 
 - metrics: 
--   silhouette: 0.5216395622404243,
--   davies_bouldin: 0.6853295219054455,
--   calinski_harabasz: 11786.954622671543
+  -   silhouette: 0.5216395622404243,
+  -   davies_bouldin: 0.6853295219054455,
+  -   calinski_harabasz: 11786.954622671543
 
 - Метрики двух методов одинаковые. Выбран KMeans так как он быстрее.
 
@@ -64,10 +64,10 @@
 - DBSCAN: eps: 0.5, min_samples: 10
 
 - metrics: 
--  silhouette: 0.2512022545940147,
--  davies_bouldin: 0.7420731639720551,
--  calinski_harabasz: 26.168575636304755,
-- noise_frac: 0.063625
+  -  silhouette: 0.2512022545940147,
+  -  davies_bouldin: 0.7420731639720551,
+  -  calinski_harabasz: 26.168575636304755,
+  - noise_frac: 0.063625
 
 - DBSCAN нашел нелинейные кластеры и лучше выделил выбросы
 
@@ -76,9 +76,9 @@
 - KMeans: k: 3
 
 - metrics:
--  silhouette: 0.31553248183109267,
--  davies_bouldin: 1.157783224021114,
--  calinski_harabasz: 6957.158106946742
+  -  silhouette: 0.31553248183109267,
+  -  davies_bouldin: 1.157783224021114,
+  -  calinski_harabasz: 6957.158106946742
 
 - KMeans ссправился лучше за счет равномерного разделения пространства.
 
