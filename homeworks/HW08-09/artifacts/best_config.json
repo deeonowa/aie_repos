@@ -2,29 +2,27 @@
     "model_name": "E4",
     "dataset": "EMNIST",
     "seed": 42,
-    "architecture": {
-        "type": "MLP",
-        "hidden_dims": [
-            256,
-            128
-        ],
-        "activation": "relu",
-        "dropout_p": 0.0,
-        "use_batchnorm": true,
-        "input_dim": 784,
-        "num_classes": 47
-    },
-    "training": {
-        "optimizer": "Adam",
-        "learning_rate": 0.001,
-        "batch_size": 64,
-        "early_stopping_patience": 4,
-        "early_stopping_min_delta": 0.0005,
-        "epochs": 50,
-        "actual_epochs_trained": 19
-    },
+    "type": "MLP",
+    "hidden_dims": [
+        256,
+        128
+    ],
+    "activation": "relu",
+    "dropout_p": 0.0,
+    "use_batchnorm": true,
+    "input_dim": 784,
+    "num_classes": 47,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "momentum": 0.0,
+    "weight_decay": 0.0,
+    "batch_size": 64,
+    "early_stopping_patience": 4,
+    "early_stopping_min_delta": 0.0005,
+    "epochs": 50,
+    "actual_epochs_trained": 19,
     "best_epoch": 15,
     "best_val_accuracy": 0.8565501412429378,
     "best_val_loss": 0.4615210581802379,
-    "timestamp": "2026-03-09 21:00:20.931778"
+    "timestamp": "2026-03-15 14:55:31.605728"
 }
