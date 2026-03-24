@@ -1,0 +1,23 @@
+{
+  "dataset": "STL10",
+  "task": "classification",
+  "num_classes": 10,
+  "architecture": "ResNet18",
+  "pretrained": "IMAGENET",
+  "head_only_epochs": 4,
+  "head_optimizer": "Adam",
+  "head_lr": 0.001,
+  "finetune_layers": "layer4+fc",
+  "finetune_epochs": 4,
+  "finetune_optimizer": "Adam",
+  "finetune_lr_layer4": 0.0001,
+  "finetune_lr_fc": 0.001,
+  "weight_decay": 0.0001,
+  "best_val_accuracy": 0.95125,
+  "test_accuracy": 0.947,
+  "best_epoch": 0,
+  "seed": 42,
+  "device": "cpu",
+  "batch_size": 64,
+  "transforms": "resnet_transform"
+}

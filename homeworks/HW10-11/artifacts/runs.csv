@@ -1,0 +1,7 @@
+experiment_id,task,dataset,seed,model_summary,optimizer,lr,epochs_trained,best_val_accuracy,test_accuracy,precision,recall,mean_iou,notes
+C1,classification,STL10,42,SimpleCNN (3 conv + 2 fc),Adam,0.001,5.0,0.48625,0.49,,,,простая CNN без аугментаций
+C2,classification,STL10,42,SimpleCNN (3 conv + 2 fc),Adam,0.001,5.0,0.445,0.463,,,,CNN с аугментациями
+C3,classification,STL10,42,ResNet18 (pretrained),Adam,0.001,4.0,0.9375,0.947,,,,только обучение головы (fc)
+C4,classification,STL10,42,"ResNet18 (pretrained), layer4+fc",Adam,0.0001,4.0,0.95125,0.927,,,,fine-tuning layer4 и fc
+V1,segmentation,OxfordIIITPet,42,DeepLabV3_ResNet50 (COCO),-,,,,,,,0.0056591289440508,"порог бинаризации 0.5, бинарная маска (cat+dog)"
+V2,segmentation,OxfordIIITPet,42,DeepLabV3_ResNet50 (COCO),-,,,,,,,0.010228298031900427,порог бинаризации 0.3
