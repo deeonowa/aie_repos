@@ -1,0 +1,26 @@
+# Core ML (versions aligned with artifacts/cve_model.joblib)
+numpy==1.26.4
+scipy==1.14.1
+scikit-learn==1.5.2
+joblib==1.4.2
+pandas>=2.0.0
+
+# EDA / notebooks
+matplotlib>=3.7.0
+seaborn>=0.13.0
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Service
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+
+# Data download
+requests>=2.31.0
+
+# Tests
+pytest>=7.4.0
+httpx>=0.25.0

@@ -1,0 +1,18 @@
+# Inference API only. Data download, notebooks, and training run on the host.
+# Before first run: pip install -r requirements.txt, python -m src.train
+
+services:
+  api:
+    build: .
+    image: cve-severity-triage-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8000"
+      LOG_LEVEL: "INFO"
+      # Optional: MODEL_PATH=/app/artifacts/cve_model.joblib
+    restart: unless-stopped
+    # Optional hot-swap model without rebuild:
+    # volumes:
+    #   - ./artifacts/cve_model.joblib:/app/artifacts/cve_model.joblib:ro

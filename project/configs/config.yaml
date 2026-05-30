@@ -1,0 +1,36 @@
+# Конфигурация проекта CVE Severity Triage
+
+data:
+  nvd_years: [2024, 2025]
+  nvd_url: "https://github.com/fkie-cad/nvd-json-data-feeds/releases/latest/download/CVE-{year}.json.xz"
+  nvd_url_fallback: "https://mirror.cveb.in/nvd/json/cve/1.1/nvdcve-1.1-{year}.json.gz"
+  raw_dir: "data/raw"
+  processed_path: "data/processed/cve_dataset.csv"
+  sample_path: "data/sample_cve.csv"
+  sample_size: 300
+  severity_thresholds:
+    medium_min: 4.0
+    high_min: 7.0
+  min_text_len: 20
+  max_text_len: 8000
+
+model:
+  random_state: 42
+  test_size: 0.2
+  experiment_sample_size: 20000
+  production_model: LogisticRegression
+  tfidf_max_features: 30000
+  tfidf_ngram_range: [1, 2]
+
+artifacts:
+  dir: "artifacts"
+  figures_dir: "artifacts/figures"
+  model_file: "cve_model.joblib"
+  metrics_all_file: "metrics_all.json"
+  best_model_meta_file: "best_model.json"
+
+service:
+  host: "0.0.0.0"
+  port: 8000
+  max_text_length: 8000
+  model_version: "2.0.0"

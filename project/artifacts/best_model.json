@@ -1,0 +1,17 @@
+{
+  "model_name": "LogisticRegression",
+  "model_type": "<class 'sklearn.linear_model._logistic.LogisticRegression'>",
+  "best_params": {},
+  "cv_score": null,
+  "test_metrics": {
+    "accuracy": 0.7713992824192721,
+    "f1": 0.6195868542326697,
+    "f1_weighted": 0.7850362505328073,
+    "balanced_accuracy": 0.7050778876314272,
+    "mcc": 0.5845779736008477,
+    "roc_auc": 0.8886855366714161
+  },
+  "n_train": 62432,
+  "n_test": 15608,
+  "n_total": 78040
+}

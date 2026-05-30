@@ -1,0 +1,25 @@
+.venv/
+.env
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+notebooks/
+tests/
+data/raw/
+data/processed/
+
+# Figures and experiment metrics are not needed for inference
+artifacts/figures/
+artifacts/metrics_all.json
+
+# Keep cve_model.joblib in build context (required)
+!artifacts/cve_model.joblib
+
+report.md
+self-checklist.md
+README.md
+*.md
